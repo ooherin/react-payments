@@ -2,15 +2,10 @@ import S from "../style";
 import { theme } from "@/style/theme";
 import MasterLogo from "@/assets/MasterLogo.svg?react";
 import VisaLogo from "@/assets/VisaLogo.svg?react";
-import { CardNumberInputType } from "@/components/CardRegisterForm/components/CardNumbersField/CardNumbersField";
 import { CARD_BRAND_INFO } from "@/constants/condition";
 import React from "react";
 
-const CardPreviewLogo = ({
-  cardNumbers,
-}: {
-  cardNumbers: CardNumberInputType;
-}) => {
+const CardPreviewLogo = ({ cardNumbers }: { cardNumbers: string }) => {
   const checkCardBrand = (cardNumbers: string) => {
     if (Number(cardNumbers[0]) === CARD_BRAND_INFO.VISA.START_NUMBER) {
       return "VISA";
@@ -24,7 +19,7 @@ const CardPreviewLogo = ({
     return "NONE";
   };
 
-  const cardTypeLogo = checkCardBrand(cardNumbers.cardNumbers1);
+  const cardTypeLogo = checkCardBrand(cardNumbers);
 
   return (
     <>

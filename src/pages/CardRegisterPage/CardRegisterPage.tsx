@@ -27,7 +27,10 @@ const CardRegisterPage = () => {
   const [isNameEntered, setIsNameEntered] = useState<boolean>(false);
 
   const isValidatedArr = [
-    cardNumbersState.isValidated,
+    !!(
+      !cardNumbersState.errorMessage &&
+      (cardNumbersState.formattedNumbers[0] || "").length
+    ),
     cardBrandState.isValidated,
     expirationPeriodState.isValidated,
     ownerNameState.isValidated && isNameEntered,
@@ -43,20 +46,21 @@ const CardRegisterPage = () => {
   const onSubmitCardInfo = () => {
     navigate(ROUTE_URL.REGISTER_CONFIRM, {
       state: {
-        startNumbers: cardNumbersState.values.cardNumbers1,
+        startNumbers: cardNumbersState.formattedNumbers[0],
         cardType: cardBrandState.value,
       },
     });
 
     const cardRegisterInfo = {
-      cardNumbers: cardNumbersState.values,
+      cardNumbers: cardNumbersState.formattedNumbers.join(""),
       expirationNumbers: expirationPeriodState.values,
       cardBrandState: cardBrandState.value,
       ownerName: ownerNameState.value,
       CVCNumbersState: CVCNumbersState.value,
       passwordState: passwordState.value,
     };
-    console.log("카드 등록 정보", cardRegisterInfo);
+
+    console.log(cardRegisterInfo);
   };
 
   return (
@@ -68,12 +72,13 @@ const CardRegisterPage = () => {
       <S.FlexWrapper>
         <CardPreview
           cardBrandType={cardBrandState.value}
-          cardNumbers={cardNumbersState.values}
+          cardNumbers={cardNumbersState.formattedNumbers.join(" ")}
           expirationDate={expirationPeriodState.values}
           ownerName={ownerNameState.value}
           CVCNumbers={CVCNumbersState.value}
           isFront={isFront}
           setIsFront={setIsFront}
+          cardBrand={cardNumbersState.cardBrand}
         />
         <CardRegisterForm
           {...cardRegisterInfo}

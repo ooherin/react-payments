@@ -1,4 +1,3 @@
-import { CardNumberInputType } from "../CardRegisterForm/components/CardNumbersField/CardNumbersField";
 import { ExpirationPeriodInputType } from "../CardRegisterForm/components/ExpirationPeriodField/ExpirationPeriodField";
 import CardPreviewBack from "./components/CardPreviewBack";
 import CardPreviewFront from "./components/CardPreviewFront";
@@ -7,12 +6,13 @@ import { CardBrandType } from "@/constants/cardBrandType";
 
 interface FrontProps {
   cardBrandType: CardBrandType | null;
-  cardNumbers: CardNumberInputType;
+  cardNumbers: string;
   expirationDate: ExpirationPeriodInputType;
   ownerName: string | null;
   CVCNumbers: string;
   isFront: boolean;
   setIsFront: React.Dispatch<React.SetStateAction<boolean>>;
+  cardBrand: string;
 }
 
 interface BackProps {
@@ -27,6 +27,7 @@ const CardPreview = ({
   CVCNumbers,
   isFront,
   setIsFront,
+  cardBrand,
 }: FrontProps & BackProps) => {
   const onFlipCard = () => {
     setIsFront((prev) => !prev);
@@ -40,6 +41,7 @@ const CardPreview = ({
           expirationDate={expirationDate}
           ownerName={ownerName}
           cardNumbers={cardNumbers}
+          cardBrand={cardBrand}
         />
         <CardPreviewBack CVCNumbers={CVCNumbers} />
       </S.CardOuter>

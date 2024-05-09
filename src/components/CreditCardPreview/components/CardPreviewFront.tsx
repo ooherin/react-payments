@@ -1,6 +1,5 @@
 import S from "../style";
 import { theme } from "@/style/theme";
-import { CardNumberInputType } from "@/components/CardRegisterForm/components/CardNumbersField/CardNumbersField";
 import { ExpirationPeriodInputType } from "@/components/CardRegisterForm/components/ExpirationPeriodField/ExpirationPeriodField";
 import { CardBrandType, CardBrandTypeColor } from "@/constants/cardBrandType";
 import CardPreviewLogo from "./CardPreviewLogo";
@@ -8,9 +7,10 @@ import CardPreviewNumbersMemo from "./CardPreviewNumbers";
 
 interface Props {
   cardBrandType: CardBrandType | null;
-  cardNumbers: CardNumberInputType;
+  cardNumbers: string;
   expirationDate: ExpirationPeriodInputType;
   ownerName: string | null;
+  cardBrand: string;
 }
 
 const CardPreviewFront = ({
@@ -18,6 +18,7 @@ const CardPreviewFront = ({
   ownerName,
   cardNumbers,
   cardBrandType,
+  cardBrand,
 }: Props) => {
   const cardTypeColor = cardBrandType
     ? CardBrandTypeColor[cardBrandType]
@@ -28,6 +29,7 @@ const CardPreviewFront = ({
       <S.FlexBox>
         <S.LogoBox color={theme.COLOR["gold-1"]}></S.LogoBox>
         <CardPreviewLogo cardNumbers={cardNumbers} />
+        <div>{cardBrand}</div>
       </S.FlexBox>
 
       <S.CreditCardInfo>

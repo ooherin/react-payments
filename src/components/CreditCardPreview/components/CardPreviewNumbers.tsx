@@ -1,13 +1,12 @@
 import { CardBrandType } from "@/constants/cardBrandType";
 import S from "../style";
 import React from "react";
-import { CardNumberInputType } from "@/components/CardRegisterForm/components/CardNumbersField/CardNumbersField";
 
 const CardPreviewNumbers = ({
   cardNumbers,
   cardBrandType,
 }: {
-  cardNumbers: CardNumberInputType;
+  cardNumbers: string;
   cardBrandType: CardBrandType | null;
 }) => {
   return (

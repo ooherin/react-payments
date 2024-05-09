@@ -1,4 +1,3 @@
-import { CardNumberInputType } from "@/components/CardRegisterForm/components/CardNumbersField/CardNumbersField";
 import useInputs from "./useInputs";
 import { MIN_LENGTH, VALID_LENGTH } from "@/constants/condition";
 import {
@@ -14,25 +13,10 @@ import useInput from "./useInput";
 import { CardBrandType } from "@/constants/cardBrandType";
 import { REGEX } from "@/constants/regex";
 import { sliceInvalidValueWithRegex, sliceOverMaxLength } from "@/utils/view";
+import { useMultiCardNumbers } from "rian-card-validation-hooks";
 
 const useCardRegister = () => {
-  const cardNumbersState = useInputs<CardNumberInputType>({
-    initialValue: {
-      cardNumbers1: "",
-      cardNumbers2: "",
-      cardNumbers3: "",
-      cardNumbers4: "",
-    },
-    validates: [
-      (value: string) =>
-        validateIsValidLength(value, VALID_LENGTH.CARD_NUMBERS),
-      (value: string) => validateIsNumber(value),
-    ],
-    inputChangeCallbacks: [
-      (value: string) => sliceInvalidValueWithRegex(value, REGEX.NUMBERS),
-      (value: string) => sliceOverMaxLength(value, VALID_LENGTH.CARD_NUMBERS),
-    ],
-  });
+  const cardNumbersState = useMultiCardNumbers();
 
   const expirationPeriodState = useInputs<ExpirationPeriodInputType>({
     initialValue: { expirationMonth: "", expirationYear: "" },

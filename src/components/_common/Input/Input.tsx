@@ -6,7 +6,7 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
 }
 
 const Input = forwardRef<HTMLInputElement, Props>(
-  ({ isError, maxLength = 2, ...restProps }, ref) => {
+  ({ isError, maxLength, ...restProps }, ref) => {
     return (
       <S.InputBox
         ref={ref}

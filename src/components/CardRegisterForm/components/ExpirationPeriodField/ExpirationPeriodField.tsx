@@ -4,11 +4,11 @@ import { MESSAGE } from "@/constants/message";
 import InputField from "@/components/_common/InputField/InputField";
 import Input from "@/components/_common/Input/Input";
 import React, { ChangeEvent, useState } from "react";
-import useInputs from "@/hooks/useInputs";
 import { INPUT_COUNTS } from "@/constants/condition";
 import useInputRefs from "@/hooks/useInputRefs";
 import { ErrorStatus } from "@/utils/validation";
 import { hasInactiveInputError } from "@/utils/view";
+import { useExpiryDate } from "rian-card-validation-hooks";
 
 export type ExpirationPeriodInputType = {
   expirationMonth: string;
@@ -16,9 +16,7 @@ export type ExpirationPeriodInputType = {
 };
 
 interface Props {
-  expirationPeriodState: ReturnType<
-    typeof useInputs<ExpirationPeriodInputType>
-  >;
+  expirationPeriodState: ReturnType<typeof useExpiryDate>;
 }
 
 type ExpirationPeriodErrorType =
@@ -34,32 +32,34 @@ const ExpirationPeriodErrorMessages: Record<ExpirationPeriodErrorType, string> =
   };
 
 type InputConfigType = {
-  name: keyof ExpirationPeriodInputType;
+  name: "month" | "year";
   placeholder: string;
 };
 
 const expirationInputConfigs: InputConfigType[] = [
   {
-    name: "expirationMonth",
+    name: "month",
     placeholder: MESSAGE.PLACEHOLDER.EXPIRATION_MONTH,
   },
   {
-    name: "expirationYear",
+    name: "year",
     placeholder: MESSAGE.PLACEHOLDER.EXPIRATION_YEAR,
   },
 ];
 
 const ExpirationPeriodField = ({ expirationPeriodState }: Props) => {
-  const { onChange, errors, values } = expirationPeriodState;
+  const { onChange, errorMessages, values } = expirationPeriodState;
   const { inputRefs, onFocusNextInput } = useInputRefs(
     INPUT_COUNTS.CARD_NUMBERS,
     onChange
   );
-  const [isErrorShow, setIsErrorShow] = useState(hasInactiveInputError(errors));
+  const [isErrorShow, setIsErrorShow] = useState(
+    hasInactiveInputError(errorMessages)
+  );
 
   const currentErrorMessages = (
-    Object.values(errors) as ExpirationPeriodErrorType[]
-  ).map((message) => ExpirationPeriodErrorMessages[message]);
+    Object.values(errorMessages) as ExpirationPeriodErrorType[]
+  ).map((message) => ExpirationPeriodErrorMessages[message] || "");
 
   return (
     <S.InputFieldWithInfo>
@@ -77,20 +77,26 @@ const ExpirationPeriodField = ({ expirationPeriodState }: Props) => {
             const { name, placeholder } = inputConfig;
 
             return (
-              <Input
-                autoFocus={index === 0}
-                ref={(el) => (inputRefs.current[index] = el)}
-                type="number"
-                key={index}
-                name={name}
-                placeholder={placeholder}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                  onFocusNextInput(e, index);
-                }}
-                isError={!!errors[name]}
-                onBlur={() => setIsErrorShow(true)}
-                value={values[name]}
-              />
+              <>
+                <Input
+                  autoFocus={index === 0}
+                  ref={(el) => (inputRefs.current[index] = el)}
+                  type="number"
+                  key={index}
+                  name={name}
+                  placeholder={placeholder}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                    onFocusNextInput(e, index);
+                  }}
+                  isError={
+                    name === "month"
+                      ? !!errorMessages.month
+                      : !!errorMessages.year
+                  }
+                  onBlur={() => setIsErrorShow(true)}
+                  value={name === "month" ? values.month : values.year}
+                />
+              </>
             );
           }
         )}
@@ -101,8 +107,8 @@ const ExpirationPeriodField = ({ expirationPeriodState }: Props) => {
 
 const arePropsEqual = (prevProps: Props, nextProps: Props) => {
   return (
-    prevProps.expirationPeriodState.errors ===
-      nextProps.expirationPeriodState.errors &&
+    prevProps.expirationPeriodState.errorMessages ===
+      nextProps.expirationPeriodState.errorMessages &&
     prevProps.expirationPeriodState.values ===
       nextProps.expirationPeriodState.values
   );

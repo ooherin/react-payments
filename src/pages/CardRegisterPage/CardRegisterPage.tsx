@@ -32,7 +32,8 @@ const CardRegisterPage = () => {
       (cardNumbersState.formattedNumbers[0] || "").length
     ),
     cardBrandState.isValidated,
-    expirationPeriodState.isValidated,
+    !expirationPeriodState.errorMessages.month &&
+      !expirationPeriodState.errorMessages.year,
     ownerNameState.isValidated && isNameEntered,
     CVCNumbersState.isValidated,
     passwordState.isValidated,

@@ -1,4 +1,3 @@
-import { ExpirationPeriodInputType } from "../CardRegisterForm/components/ExpirationPeriodField/ExpirationPeriodField";
 import CardPreviewBack from "./components/CardPreviewBack";
 import CardPreviewFront from "./components/CardPreviewFront";
 import S from "./style";
@@ -7,7 +6,7 @@ import { CardBrandType } from "@/constants/cardBrandType";
 interface FrontProps {
   cardBrandType: CardBrandType | null;
   cardNumbers: string;
-  expirationDate: ExpirationPeriodInputType;
+  expirationDate: { month: string; year: string };
   ownerName: string | null;
   CVCNumbers: string;
   isFront: boolean;

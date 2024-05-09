@@ -1,6 +1,5 @@
 import S from "../style";
 import { theme } from "@/style/theme";
-import { ExpirationPeriodInputType } from "@/components/CardRegisterForm/components/ExpirationPeriodField/ExpirationPeriodField";
 import { CardBrandType, CardBrandTypeColor } from "@/constants/cardBrandType";
 import CardPreviewLogo from "./CardPreviewLogo";
 import CardPreviewNumbersMemo from "./CardPreviewNumbers";
@@ -8,7 +7,7 @@ import CardPreviewNumbersMemo from "./CardPreviewNumbers";
 interface Props {
   cardBrandType: CardBrandType | null;
   cardNumbers: string;
-  expirationDate: ExpirationPeriodInputType;
+  expirationDate: { month: string; year: string };
   ownerName: string | null;
   cardBrand: string;
 }
@@ -41,11 +40,8 @@ const CardPreviewFront = ({
           $isWhite={cardBrandType !== "카카오뱅크"}
           type="text"
           value={
-            expirationDate.expirationMonth &&
-            [
-              expirationDate.expirationMonth,
-              expirationDate.expirationYear,
-            ].join("/")
+            expirationDate.month &&
+            [expirationDate.month, expirationDate.year].join("/")
           }
           readOnly
         />

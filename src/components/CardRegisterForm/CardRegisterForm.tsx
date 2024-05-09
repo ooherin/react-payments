@@ -1,6 +1,4 @@
 import S from "./style";
-import useInputs from "@/hooks/useInputs";
-import { ExpirationPeriodInputType } from "./components/ExpirationPeriodField/ExpirationPeriodField";
 import useInput from "@/hooks/useInput";
 import { REGISTER_STEP } from "@/constants/condition";
 import { CardBrandType } from "@/constants/cardBrandType";
@@ -10,13 +8,11 @@ import OwnerNameFieldMemo from "./components/OwnerNameField/OwnerNameField";
 import CVCFieldMemo from "./components/CVCField/CVCField";
 import PasswordFieldMemo from "./components/PasswordField/PasswordField";
 import CardBrandSelectFieldMemo from "./components/CardBrandSelectField/CardBrandSelectField";
-import { useMultiCardNumbers } from "rian-card-validation-hooks";
+import { useExpiryDate, useMultiCardNumbers } from "rian-card-validation-hooks";
 
 interface Props {
   cardNumbersState: ReturnType<typeof useMultiCardNumbers>;
-  expirationPeriodState: ReturnType<
-    typeof useInputs<ExpirationPeriodInputType>
-  >;
+  expirationPeriodState: ReturnType<typeof useExpiryDate>;
   ownerNameState: ReturnType<typeof useInput<string>>;
   CVCNumbersState: ReturnType<typeof useInput<string>>;
   passwordState: ReturnType<typeof useInput<string>>;

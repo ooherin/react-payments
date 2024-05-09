@@ -6,12 +6,12 @@ const CardPreviewNumbers = ({
   cardNumbers,
   cardBrandType,
 }: {
-  cardNumbers: string;
+  cardNumbers: string[];
   cardBrandType: CardBrandType | null;
 }) => {
   return (
     <S.CardNumbers>
-      {Object.values(cardNumbers).map((number: string, index) => {
+      {cardNumbers.map((number: string, index) => {
         const isMasked = index >= 2;
         return (
           <S.Input

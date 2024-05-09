@@ -8,14 +8,20 @@ import OwnerNameFieldMemo from "./components/OwnerNameField/OwnerNameField";
 import CVCFieldMemo from "./components/CVCField/CVCField";
 import PasswordFieldMemo from "./components/PasswordField/PasswordField";
 import CardBrandSelectFieldMemo from "./components/CardBrandSelectField/CardBrandSelectField";
-import { useExpiryDate, useMultiCardNumbers } from "rian-card-validation-hooks";
+import {
+  useCardHolder,
+  useExpiryDate,
+  useMultiCardNumbers,
+  useCVC,
+  usePassword,
+} from "rian-card-validation-hooks";
 
 interface Props {
   cardNumbersState: ReturnType<typeof useMultiCardNumbers>;
   expirationPeriodState: ReturnType<typeof useExpiryDate>;
-  ownerNameState: ReturnType<typeof useInput<string>>;
-  CVCNumbersState: ReturnType<typeof useInput<string>>;
-  passwordState: ReturnType<typeof useInput<string>>;
+  cardHolderState: ReturnType<typeof useCardHolder>;
+  CVCNumbersState: ReturnType<typeof useCVC>;
+  passwordState: ReturnType<typeof usePassword>;
   cardBrandState: ReturnType<typeof useInput<CardBrandType | null>>;
   formProgress: number;
   setIsFront: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,7 +31,7 @@ interface Props {
 const CardRegisterForm = ({
   cardNumbersState,
   expirationPeriodState,
-  ownerNameState,
+  cardHolderState,
   CVCNumbersState,
   passwordState,
   cardBrandState,
@@ -46,7 +52,7 @@ const CardRegisterForm = ({
       )}
       {formProgress >= REGISTER_STEP.OWNER_NAME && (
         <OwnerNameFieldMemo
-          ownerNameState={ownerNameState}
+          cardHolderState={cardHolderState}
           setIsNameEntered={setIsNameEntered}
         />
       )}

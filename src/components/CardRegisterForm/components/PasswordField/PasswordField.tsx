@@ -3,36 +3,24 @@ import InputFieldHeader from "@/components/_common/InputFieldHeader/InputFieldHe
 import { MESSAGE } from "@/constants/message";
 import InputField from "@/components/_common/InputField/InputField";
 import Input from "@/components/_common/Input/Input";
-import useInput from "@/hooks/useInput";
 import React, { ChangeEvent, useState } from "react";
 import { VALID_LENGTH } from "@/constants/condition";
-import { ErrorStatus } from "@/utils/validation";
+import { usePassword } from "rian-card-validation-hooks";
 
 interface Props {
-  passwordState: ReturnType<typeof useInput<string>>;
+  passwordState: ReturnType<typeof usePassword>;
 }
 
-type PasswordErrorType = ErrorStatus.IS_NOT_NUMBER | ErrorStatus.INVALID_LENGTH;
-
-const PasswordError: Record<PasswordErrorType, string> = {
-  [ErrorStatus.IS_NOT_NUMBER]: "숫자로 입력해주세요.",
-  [ErrorStatus.INVALID_LENGTH]: "비밀번호는 숫자 2자리를 입력해야 합니다.",
-};
-
 const PasswordField = ({ passwordState }: Props) => {
-  const { onChange, error, value } = passwordState;
+  const { onChange, errorMessage, value } = passwordState;
   const [isErrorShow, setIsErrorShow] = useState(false);
-
-  const currentErrorMessage = (Object.values(error) as PasswordErrorType[]).map(
-    (message) => PasswordError[message]
-  );
 
   return (
     <S.InputFieldWithInfo>
       <InputFieldHeader title={MESSAGE.INPUT_INFO_TITLE.PASSWORD} />
       <InputField
         label={MESSAGE.INPUT_LABEL.PASSWORD}
-        errorMessages={currentErrorMessage}
+        errorMessages={[errorMessage || ""]}
         isErrorShow={isErrorShow}
       >
         <Input
@@ -43,7 +31,7 @@ const PasswordField = ({ passwordState }: Props) => {
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             onChange(e);
           }}
-          isError={!!error.length}
+          isError={!!(errorMessage || "").length}
           onBlur={() => {
             setIsErrorShow(true);
           }}
@@ -56,7 +44,8 @@ const PasswordField = ({ passwordState }: Props) => {
 
 const arePropsEqual = (prevProps: Props, nextProps: Props) => {
   return (
-    prevProps.passwordState.error === nextProps.passwordState.error &&
+    prevProps.passwordState.errorMessage ===
+      nextProps.passwordState.errorMessage &&
     prevProps.passwordState.value === nextProps.passwordState.value
   );
 };

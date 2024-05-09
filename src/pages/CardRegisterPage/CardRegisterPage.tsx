@@ -20,7 +20,7 @@ const CardRegisterPage = () => {
     cardBrandState,
     CVCNumbersState,
     passwordState,
-    ownerNameState,
+    cardHolderState,
   } = cardRegisterInfo;
 
   const [isFront, setIsFront] = useState<boolean>(true);
@@ -32,11 +32,15 @@ const CardRegisterPage = () => {
       (cardNumbersState.formattedNumbers[0] || "").length
     ),
     cardBrandState.isValidated,
-    !expirationPeriodState.errorMessages.month &&
-      !expirationPeriodState.errorMessages.year,
-    ownerNameState.isValidated && isNameEntered,
-    CVCNumbersState.isValidated,
-    passwordState.isValidated,
+    !!(
+      !expirationPeriodState.errorMessages.month &&
+      !expirationPeriodState.errorMessages.year &&
+      expirationPeriodState.values.month &&
+      expirationPeriodState.values.year
+    ),
+    !cardHolderState.errorMessage && !!cardHolderState.value,
+    !CVCNumbersState.errorMessage && !!CVCNumbersState.value,
+    !passwordState.errorMessage && !!passwordState.value,
   ];
 
   const { progressCompleted, formProgress } = useFormProgress({
@@ -56,7 +60,7 @@ const CardRegisterPage = () => {
       cardNumbers: cardNumbersState.formattedNumbers.join(""),
       expirationNumbers: expirationPeriodState.values,
       cardBrandState: cardBrandState.value,
-      ownerName: ownerNameState.value,
+      ownerName: cardHolderState.value,
       CVCNumbersState: CVCNumbersState.value,
       passwordState: passwordState.value,
     };
@@ -73,9 +77,9 @@ const CardRegisterPage = () => {
       <S.FlexWrapper>
         <CardPreview
           cardBrandType={cardBrandState.value}
-          cardNumbers={cardNumbersState.formattedNumbers.join(" ")}
+          cardNumbers={cardNumbersState.formattedNumbers}
           expirationDate={expirationPeriodState.values}
-          ownerName={ownerNameState.value}
+          ownerName={cardHolderState.value}
           CVCNumbers={CVCNumbersState.value}
           isFront={isFront}
           setIsFront={setIsFront}

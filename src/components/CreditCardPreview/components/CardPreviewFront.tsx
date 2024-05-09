@@ -6,7 +6,7 @@ import CardPreviewNumbersMemo from "./CardPreviewNumbers";
 
 interface Props {
   cardBrandType: CardBrandType | null;
-  cardNumbers: string;
+  cardNumbers: string[];
   expirationDate: { month: string; year: string };
   ownerName: string | null;
   cardBrand: string;
@@ -27,7 +27,7 @@ const CardPreviewFront = ({
     <S.CardInner $cardTypeColor={cardTypeColor} $isFront={true}>
       <S.FlexBox>
         <S.LogoBox color={theme.COLOR["gold-1"]}></S.LogoBox>
-        <CardPreviewLogo cardNumbers={cardNumbers} />
+        <CardPreviewLogo cardNumbers={cardNumbers[0] || ""} />
         <div>{cardBrand}</div>
       </S.FlexBox>
 

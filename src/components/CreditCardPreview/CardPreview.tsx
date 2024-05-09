@@ -5,7 +5,7 @@ import { CardBrandType } from "@/constants/cardBrandType";
 
 interface FrontProps {
   cardBrandType: CardBrandType | null;
-  cardNumbers: string;
+  cardNumbers: string[];
   expirationDate: { month: string; year: string };
   ownerName: string | null;
   CVCNumbers: string;

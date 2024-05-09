@@ -3,41 +3,24 @@ import InputField from "@/components/_common/InputField/InputField";
 import InputFieldHeader from "@/components/_common/InputFieldHeader/InputFieldHeader";
 import { MESSAGE } from "@/constants/message";
 import S from "../../style";
-import useInput from "@/hooks/useInput";
 import React, { ChangeEvent, useState } from "react";
 import { VALID_LENGTH } from "@/constants/condition";
-import { ErrorStatus } from "@/utils/validation";
-
+import { useCVC } from "rian-card-validation-hooks";
 interface Props {
-  CVCNumbersState: ReturnType<typeof useInput<string>>;
+  CVCNumbersState: ReturnType<typeof useCVC>;
   setIsFront: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-type CVCNumbersErrorType =
-  | ErrorStatus.IS_NOT_NUMBER
-  | ErrorStatus.INVALID_MONTH
-  | ErrorStatus.INVALID_LENGTH;
-
-const CVCNumbersErrorMessage: Record<CVCNumbersErrorType, string> = {
-  [ErrorStatus.IS_NOT_NUMBER]: "숫자로 입력하세요.",
-  [ErrorStatus.INVALID_MONTH]: "CVC는 숫자 3자리로 입력해 주세요.",
-  [ErrorStatus.INVALID_LENGTH]: "CVC는 숫자 3자리로 입력해 주세요.",
-};
-
 const CVCField = ({ CVCNumbersState, setIsFront }: Props) => {
-  const { onChange, error, value } = CVCNumbersState;
+  const { onChange, errorMessage, value } = CVCNumbersState;
   const [isErrorShow, setIsErrorShow] = useState(false);
-
-  const currentErrorMessages = (
-    Object.values(error) as CVCNumbersErrorType[]
-  ).map((message) => CVCNumbersErrorMessage[message]);
 
   return (
     <S.InputFieldWithInfo>
       <InputFieldHeader title={MESSAGE.INPUT_INFO_TITLE.CVC} />
       <InputField
         label={MESSAGE.INPUT_LABEL.CVC}
-        errorMessages={currentErrorMessages}
+        errorMessages={[errorMessage || ""]}
         isErrorShow={isErrorShow}
       >
         <Input
@@ -54,7 +37,7 @@ const CVCField = ({ CVCNumbersState, setIsFront }: Props) => {
             setIsFront(true);
             setIsErrorShow(true);
           }}
-          isError={!!error.length}
+          isError={!!(errorMessage || "").length}
           value={value}
         />
       </InputField>
@@ -64,7 +47,8 @@ const CVCField = ({ CVCNumbersState, setIsFront }: Props) => {
 
 const arePropsEqual = (prevProps: Props, nextProps: Props) => {
   return (
-    prevProps.CVCNumbersState.error === nextProps.CVCNumbersState.error &&
+    prevProps.CVCNumbersState.errorMessage ===
+      nextProps.CVCNumbersState.errorMessage &&
     prevProps.CVCNumbersState.value === nextProps.CVCNumbersState.value
   );
 };

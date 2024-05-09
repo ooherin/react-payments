@@ -6,7 +6,6 @@ import Input from "@/components/_common/Input/Input";
 import React, { ChangeEvent, useState } from "react";
 import { INPUT_COUNTS } from "@/constants/condition";
 import useInputRefs from "@/hooks/useInputRefs";
-import { ErrorStatus } from "@/utils/validation";
 import { hasInactiveInputError } from "@/utils/view";
 import { useExpiryDate } from "rian-card-validation-hooks";
 
@@ -18,18 +17,6 @@ export type ExpirationPeriodInputType = {
 interface Props {
   expirationPeriodState: ReturnType<typeof useExpiryDate>;
 }
-
-type ExpirationPeriodErrorType =
-  | ErrorStatus.IS_NOT_NUMBER
-  | ErrorStatus.INVALID_MONTH
-  | ErrorStatus.INVALID_LENGTH;
-
-const ExpirationPeriodErrorMessages: Record<ExpirationPeriodErrorType, string> =
-  {
-    [ErrorStatus.IS_NOT_NUMBER]: "숫자로 입력하세요.",
-    [ErrorStatus.INVALID_MONTH]: "달은 2자리의 정수로 입력해 주세요.",
-    [ErrorStatus.INVALID_LENGTH]: "2자리의 정수로 입력해 주세요.",
-  };
 
 type InputConfigType = {
   name: "month" | "year";
@@ -57,10 +44,6 @@ const ExpirationPeriodField = ({ expirationPeriodState }: Props) => {
     hasInactiveInputError(errorMessages)
   );
 
-  const currentErrorMessages = (
-    Object.values(errorMessages) as ExpirationPeriodErrorType[]
-  ).map((message) => ExpirationPeriodErrorMessages[message] || "");
-
   return (
     <S.InputFieldWithInfo>
       <InputFieldHeader
@@ -69,7 +52,7 @@ const ExpirationPeriodField = ({ expirationPeriodState }: Props) => {
       />
       <InputField
         label={MESSAGE.INPUT_LABEL.EXPIRATION_DATE}
-        errorMessages={currentErrorMessages}
+        errorMessages={Object.values(errorMessages)}
         isErrorShow={isErrorShow}
       >
         {expirationInputConfigs.map(

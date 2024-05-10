@@ -13,6 +13,7 @@ export type BasicButtonProps = {
   $backgroundColor: string;
   $borderType: ButtonBorderType;
   position: ButtonPosition;
+  $borderColor?: string;
 };
 
 const ButtonWrapper = styled.button<BasicButtonProps>`
@@ -30,6 +31,8 @@ const ButtonWrapper = styled.button<BasicButtonProps>`
   }
   position: ${({ position }) => position === "bottom" && "absolute"};
   bottom: ${({ position }) => position === "bottom" && "0"};
+  border: 1px solid
+    ${({ $borderColor }) => ($borderColor ? $borderColor : "white")};
 `;
 
 const S = {

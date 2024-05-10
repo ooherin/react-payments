@@ -1,7 +1,7 @@
 import { flexCenter } from "@/style/common";
 import { styled, css } from "styled-components";
 
-const CardWrapper = styled.div`
+export const CardWrapper = styled.div`
   width: 212px;
   height: 132px;
   border-radius: 4px;
@@ -12,7 +12,7 @@ const CardWrapper = styled.div`
   perspective: 1000px;
 `;
 
-const CardOuter = styled.div<{ $isFront: boolean }>`
+export const CardOuter = styled.div<{ $isFront: boolean }>`
   width: 100%;
   height: 100%;
   position: relative;
@@ -28,7 +28,7 @@ const CardOuter = styled.div<{ $isFront: boolean }>`
   border-radius: 4px;
 `;
 
-const CardInner = styled.div<{
+export const CardInner = styled.div<{
   $cardTypeColor: string | null;
   $isFront: boolean;
 }>`
@@ -42,9 +42,12 @@ const CardInner = styled.div<{
   backface-visibility: hidden;
   transform: ${({ $isFront }) =>
     $isFront ? "rotateY(0deg)" : "rotateY(180deg)"};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
-const CreditCardInfo = styled.div`
+export const CreditCardInfo = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 8px;
@@ -55,22 +58,38 @@ const CreditCardInfo = styled.div`
   gap: 10px;
 `;
 
-const CardNumbers = styled.div`
+export const CardNumbers = styled.div`
   display: flex;
-  justify-content: center;
-  flex-direction: row;
-  column-gap: 3px;
-  width: 170px;
+  justify-content: flex-start;
+  gap: 15px;
 `;
 
-const FlexBox = styled.div`
+export const CardNumbersPart = styled.span<{ $isWhite: boolean }>`
+  color: ${({ $isWhite }) => ($isWhite ? "white" : "black")};
+`;
+
+export const CardNumbersMasked = styled.span`
+  display: flex;
+  gap: 3px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const PasswordDot = styled.span<{ $isWhite: boolean }>`
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: ${({ $isWhite }) => ($isWhite ? "white" : "black")};
+`;
+
+export const FlexBox = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
   margin-bottom: 8px;
 `;
 
-const LogoBox = styled.div<{ color: string }>`
+export const LogoBox = styled.div<{ color: string }>`
   width: 36px;
   height: 22px;
   border-radius: 1.5px;
@@ -80,7 +99,7 @@ const LogoBox = styled.div<{ color: string }>`
   align-items: center;
 `;
 
-const Input = styled.input<{ $center?: boolean; $isWhite: boolean }>`
+export const Input = styled.input<{ $center?: boolean; $isWhite: boolean }>`
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.16em;
@@ -95,7 +114,7 @@ const Input = styled.input<{ $center?: boolean; $isWhite: boolean }>`
   flex-shrink: 1;
 `;
 
-const CardCVCPart = styled.div`
+export const CardCVCPart = styled.div`
   height: 24px;
   width: 212px;
   display: flex;
@@ -105,22 +124,7 @@ const CardCVCPart = styled.div`
   font-size: 14px;
 `;
 
-const CVCNumberBox = styled.span`
+export const CVCNumberBox = styled.span`
   width: 45px;
   ${flexCenter}
 `;
-
-const S = {
-  FlexBox,
-  CardWrapper,
-  CreditCardInfo,
-  CardNumbers,
-  Input,
-  CardCVCPart,
-  LogoBox,
-  CVCNumberBox,
-  CardInner,
-  CardOuter,
-};
-
-export default S;

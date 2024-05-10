@@ -7,6 +7,7 @@ import { CardBrandType, CardBrandTypeColor } from "@/constants/cardBrandType";
 import React, { useState } from "react";
 import { CardSelectModal } from "@/components/Modal/CardSelectModal";
 import BasicButton from "@/components/_common/BasicButton/BasicButton";
+import { theme } from "@/style/theme";
 
 interface Props {
   cardBrandState: ReturnType<typeof useInput<CardBrandType | null>>;
@@ -15,9 +16,6 @@ interface Props {
 const CardBrandSelectField = ({ cardBrandState }: Props) => {
   const { value, setValue } = cardBrandState;
 
-  // const CardTypeNames = [
-  //   ...(Object.keys(CardBrandTypeColor) as CardBrandType[]),
-  // ];
   const [isCardCompanySelectModalOpen, setIsCardCompanySelectModalOpen] =
     useState(false);
 
@@ -46,12 +44,14 @@ const CardBrandSelectField = ({ cardBrandState }: Props) => {
       />
       <InputField errorMessages={[]}>
         <BasicButton
+          textColor={value === "카카오뱅크" ? "white" : theme.COLOR["grey-3"]}
           onClick={onOpenModal}
           backgroundColor={value ? CardBrandTypeColor[value] : "white"}
           height={40}
           borderType="round"
           disabled={false}
           position="basic"
+          borderColor={theme.COLOR["grey-4"]}
         >
           {value || "카드사를 선택해주세요."}
         </BasicButton>

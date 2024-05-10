@@ -1,10 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import ExpirationPeriodField, {
-  ExpirationPeriodInputType,
-} from "./ExpirationPeriodField";
-import { validateIsValidLength, validateMonth } from "@/utils/validation";
-import useInputs from "@/hooks/useInputs";
-import { VALID_LENGTH } from "@/constants/condition";
+import ExpirationPeriodField from "./ExpirationPeriodField";
+import { useExpiryDate } from "rian-card-validation-hooks";
 
 const meta = {
   title: "CardRegisterForm/ExpirationPeriodField",
@@ -14,15 +10,7 @@ const meta = {
 export default meta;
 
 const ExpirationPeriodFieldWithHook = () => {
-  const expirationPeriodState = useInputs<ExpirationPeriodInputType>({
-    initialValue: { expirationMonth: "", expirationYear: "" },
-    validates: [
-      (value: string) =>
-        validateIsValidLength(value, VALID_LENGTH.EXPIRATION_PERIOD),
-      (value: string, name: string) =>
-        name === "expirationMonth" ? validateMonth(Number(value)) : null,
-    ],
-  });
+  const expirationPeriodState = useExpiryDate({ month: "", year: "" });
 
   return (
     <ExpirationPeriodField expirationPeriodState={expirationPeriodState} />

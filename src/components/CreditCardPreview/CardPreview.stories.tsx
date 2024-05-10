@@ -13,19 +13,15 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     cardBrandType: "BC카드",
-    cardNumbers: {
-      cardNumbers1: "1234",
-      cardNumbers2: "1234",
-      cardNumbers3: "1234",
-      cardNumbers4: "1234",
-    },
+    cardNumbers: ["1234", "1234", "1234", "1234"],
     expirationDate: {
-      expirationMonth: "01",
-      expirationYear: "25",
+      month: "01",
+      year: "25",
     },
     ownerName: "RIAN OH",
     CVCNumbers: "123",
     isFront: true,
     setIsFront: () => {},
+    cardBrand: "VISA",
   },
 };

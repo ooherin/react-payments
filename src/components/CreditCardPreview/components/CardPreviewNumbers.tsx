@@ -1,5 +1,5 @@
 import { CardBrandType } from "@/constants/cardBrandType";
-import S from "../style";
+import * as S from "../style";
 import React from "react";
 
 const CardPreviewNumbers = ({
@@ -13,14 +13,22 @@ const CardPreviewNumbers = ({
     <S.CardNumbers>
       {cardNumbers.map((number: string, index) => {
         const isMasked = index >= 2;
-        return (
-          <S.Input
+        return isMasked ? (
+          <S.CardNumbersMasked>
+            {Array.from({ length: number.length }).map((e, index) => (
+              <S.PasswordDot
+                $isWhite={cardBrandType !== "카카오뱅크"}
+                key={index}
+              />
+            ))}
+          </S.CardNumbersMasked>
+        ) : (
+          <S.CardNumbersPart
             $isWhite={cardBrandType !== "카카오뱅크"}
             key={index}
-            type={isMasked ? "password" : "text"}
-            value={number}
-            readOnly
-          />
+          >
+            {number}
+          </S.CardNumbersPart>
         );
       })}
     </S.CardNumbers>

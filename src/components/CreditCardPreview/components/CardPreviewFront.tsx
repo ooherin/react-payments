@@ -1,4 +1,4 @@
-import S from "../style";
+import * as S from "../style";
 import { theme } from "@/style/theme";
 import { CardBrandType, CardBrandTypeColor } from "@/constants/cardBrandType";
 import CardPreviewLogo from "./CardPreviewLogo";
@@ -28,7 +28,9 @@ const CardPreviewFront = ({
       <S.FlexBox>
         <S.LogoBox color={theme.COLOR["gold-1"]}></S.LogoBox>
         <CardPreviewLogo cardNumbers={cardNumbers[0] || ""} />
-        <div>{cardBrand}</div>
+        <S.CardNumbersPart $isWhite={cardBrandType !== "카카오뱅크"}>
+          {cardBrand}
+        </S.CardNumbersPart>
       </S.FlexBox>
 
       <S.CreditCardInfo>

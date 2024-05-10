@@ -15,6 +15,7 @@ type BasicButtonProps = {
   disabled: boolean;
   backgroundColor: string;
   position: ButtonPosition;
+  borderColor?: string;
 };
 
 const BasicButton = ({
@@ -25,6 +26,7 @@ const BasicButton = ({
   backgroundColor,
   borderType,
   position,
+  borderColor,
   ...props
 }: PropsWithChildren<BasicButtonProps>) => {
   return (
@@ -35,6 +37,7 @@ const BasicButton = ({
       $backgroundColor={backgroundColor}
       $borderType={borderType}
       position={position}
+      $borderColor={borderColor}
       {...props}
     >
       {children}

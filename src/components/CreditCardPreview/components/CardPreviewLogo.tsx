@@ -1,4 +1,4 @@
-import S from "../style";
+import * as S from "../style";
 import { theme } from "@/style/theme";
 import MasterLogo from "@/assets/MasterLogo.svg?react";
 import VisaLogo from "@/assets/VisaLogo.svg?react";

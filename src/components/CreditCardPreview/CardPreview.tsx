@@ -1,6 +1,6 @@
 import CardPreviewBack from "./components/CardPreviewBack";
 import CardPreviewFront from "./components/CardPreviewFront";
-import S from "./style";
+import * as S from "./style";
 import { CardBrandType } from "@/constants/cardBrandType";
 
 interface FrontProps {

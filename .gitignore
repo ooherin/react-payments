@@ -25,6 +25,5 @@ node_modules
 *.sln
 *.sw?
 .env
-.dist
 
 *storybook.log

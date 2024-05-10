@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import CardNumbersField, { CardNumberInputType } from "./CardNumbersField";
-import useInputs from "@/hooks/useInputs";
-import { validateIsNumber, validateIsValidLength } from "@/utils/validation";
-import { VALID_LENGTH } from "@/constants/condition";
+import CardNumbersField from "./CardNumbersField";
+import { useMultiCardNumbers } from "rian-card-validation-hooks";
 
 const meta = {
   title: "CardRegisterForm/CardNumbersField",
@@ -12,19 +10,7 @@ const meta = {
 export default meta;
 
 const CardNumbersStateWithHook = () => {
-  const cardNumbersState = useInputs<CardNumberInputType>({
-    initialValue: {
-      cardNumbers1: "",
-      cardNumbers2: "",
-      cardNumbers3: "",
-      cardNumbers4: "",
-    },
-    validates: [
-      (value: string) =>
-        validateIsValidLength(value, VALID_LENGTH.CARD_NUMBERS),
-      (value: string) => validateIsNumber(value),
-    ],
-  });
+  const cardNumbersState = useMultiCardNumbers();
   return <CardNumbersField cardNumbersState={cardNumbersState} />;
 };
 

@@ -17,23 +17,8 @@ interface Props {
   cardNumbersState: ReturnType<typeof useMultiCardNumbers>;
 }
 
-// type CardNumberKeys = keyof CardNumberInputType;
-
 const CardNumbersField = ({ cardNumbersState }: Props) => {
   const { onChange, formattedNumbers, errorMessage } = cardNumbersState;
-
-  // const [isErrorShow, setIsErrorShow] = useState(
-  //   !isValidated && hasInactiveInputError(errors)
-  // );
-
-  // const { inputRefs, onFocusNextInput } = useInputRefs(
-  //   INPUT_COUNTS.CARD_NUMBERS,
-  //   onChange
-  // );
-
-  // const getCardNumbersKey = (index: number): CardNumberKeys => {
-  //   return `cardNumbers${index + 1}` as CardNumberKeys;
-  // };
 
   return (
     <S.InputFieldWithInfo>

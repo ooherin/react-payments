@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import OwnerNameField from "./OwnerNameField";
-import useInput from "@/hooks/useInput";
-import { validateDoubleSpace, validateIsCapital } from "@/utils/validation";
 import { useState } from "react";
+import { useCardHolder } from "rian-card-validation-hooks";
 
 const meta = {
   title: "CardRegisterForm/OwnerNameField",
@@ -12,20 +11,14 @@ const meta = {
 export default meta;
 
 const OwnerNameFieldWithHook = () => {
-  const ownerNameState = useInput({
-    initialValue: "",
-    validates: [
-      (value: string) => validateIsCapital(value),
-      (value: string) => validateDoubleSpace(value),
-    ],
-  });
+  const cardHolderState = useCardHolder("");
 
   const [, setIsNameEntered] = useState<boolean>(false);
 
   return (
     <OwnerNameField
       setIsNameEntered={setIsNameEntered}
-      ownerNameState={ownerNameState}
+      cardHolderState={cardHolderState}
     />
   );
 };

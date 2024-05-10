@@ -15,7 +15,7 @@ const CardPreviewNumbers = ({
         const isMasked = index >= 2;
         return isMasked ? (
           <S.CardNumbersMasked>
-            {Array.from({ length: number.length }).map((e, index) => (
+            {Array.from({ length: number.length }).map((_, index) => (
               <S.PasswordDot
                 $isWhite={cardBrandType !== "카카오뱅크"}
                 key={index}

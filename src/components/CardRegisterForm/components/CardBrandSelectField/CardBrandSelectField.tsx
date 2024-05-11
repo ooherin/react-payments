@@ -31,6 +31,8 @@ const CardBrandSelectField = ({ cardBrandState }: Props) => {
     setValue(brand);
     onCloseModal();
   };
+
+  console.log("value", value);
   return (
     <S.InputFieldWithInfo>
       <CardSelectModal
@@ -44,7 +46,11 @@ const CardBrandSelectField = ({ cardBrandState }: Props) => {
       />
       <InputField errorMessages={[]}>
         <BasicButton
-          textColor={value === "카카오뱅크" ? "white" : theme.COLOR["grey-3"]}
+          textColor={
+            value === "카카오뱅크" || value === null
+              ? theme.COLOR["grey-3"]
+              : "white"
+          }
           onClick={onOpenModal}
           backgroundColor={value ? CardBrandTypeColor[value] : "white"}
           height={40}

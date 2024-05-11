@@ -18,7 +18,8 @@ interface Props {
 }
 
 const CardNumbersField = ({ cardNumbersState }: Props) => {
-  const { onChange, formattedNumbers, errorMessage } = cardNumbersState;
+  const { onChange, formattedNumbers, errorMessage, inputRef } =
+    cardNumbersState;
 
   return (
     <S.InputFieldWithInfo>
@@ -36,6 +37,7 @@ const CardNumbersField = ({ cardNumbersState }: Props) => {
           onChange={onChange}
           value={formattedNumbers.join("-")}
           isError={!!errorMessage}
+          ref={inputRef}
         />
       </InputFieldMemo>
     </S.InputFieldWithInfo>

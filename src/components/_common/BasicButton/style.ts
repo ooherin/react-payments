@@ -33,6 +33,7 @@ const ButtonWrapper = styled.button<BasicButtonProps>`
   bottom: ${({ position }) => position === "bottom" && "0"};
   border: 1px solid
     ${({ $borderColor }) => ($borderColor ? $borderColor : "white")};
+  cursor: pointer;
 `;
 
 const S = {

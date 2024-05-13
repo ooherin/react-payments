@@ -15,7 +15,7 @@ const OneCardCompanyBox = styled.div<{
   onClick: (brand: CardBrandType) => void;
 }>`
   width: 58px;
-  font-size: 11px;
+  font-size: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
